@@ -1,0 +1,17 @@
+{
+  "name": "drivera-agent-coordinator",
+  "version": "1.0.0",
+  "description": "AI Agent Coordinator System for Drivera - a dynamic driver-focused app and website",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js",
+    "agents": "node src/cli.js",
+    "test": "node --test src/tests/**/*.test.js"
+  },
+  "keywords": ["drivera", "ai-agents", "coordinator", "multi-agent"],
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {}
+}
