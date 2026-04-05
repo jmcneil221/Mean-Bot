@@ -1,7 +1,7 @@
 {
-  "name": "drivera-agent-coordinator",
+  "name": "carbuyinghub-agent-coordinator",
   "version": "1.0.0",
-  "description": "AI Agent Coordinator System for Drivera - a dynamic driver-focused app and website",
+  "description": "AI Agent Coordinator System for Carbuyinghub.com - a dynamic car buying app and website",
   "main": "src/index.js",
   "type": "module",
   "scripts": {
@@ -10,7 +10,7 @@
     "agents": "node src/cli.js",
     "test": "node --test src/tests/**/*.test.js"
   },
-  "keywords": ["drivera", "ai-agents", "coordinator", "multi-agent"],
+  "keywords": ["carbuyinghub", "car-buying", "ai-agents", "coordinator", "multi-agent"],
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {}

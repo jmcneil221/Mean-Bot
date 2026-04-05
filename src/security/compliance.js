@@ -2,7 +2,7 @@
  * Compliance Configuration
  * =========================
  * Defines the regulatory requirements for handling credit applications.
- * Drivera must comply with these because it handles SSNs and financial data.
+ * Carbuyinghub must comply with these because it handles SSNs and financial data.
  *
  * Key regulations:
  * - PCI DSS: Payment card data security

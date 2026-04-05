@@ -61,7 +61,7 @@ export class GraphicDesignAgent extends Agent {
             accent: 'Space Grotesk',
           },
           logoVariants: ['full-color', 'monochrome', 'icon-only', 'dark-mode'],
-          brandVoice: 'Professional yet approachable — drivers trust Drivera',
+          brandVoice: 'Professional yet approachable — drivers trust Carbuyinghub',
         },
         moodBoard: 'Clean, modern, trustworthy — automotive meets tech',
         targetAudience: 'Drivers of all types: rideshare, delivery, trucking, personal',
@@ -86,7 +86,7 @@ export class GraphicDesignAgent extends Agent {
       concepts: [
         { name: 'The Compass', style: 'Minimalist compass integrating a "D"', confidence: 0.9 },
         { name: 'The Shield', style: 'Shield shape representing driver protection', confidence: 0.85 },
-        { name: 'The Road', style: 'Abstract road forming the Drivera wordmark', confidence: 0.8 },
+        { name: 'The Road', style: 'Abstract road forming the Carbuyinghub wordmark', confidence: 0.8 },
       ],
       specifications: {
         formats: ['SVG', 'PNG', 'ICO', 'PDF'],
@@ -105,7 +105,7 @@ export class GraphicDesignAgent extends Agent {
       agent: this.name,
       task: task.title,
       palette: {
-        primary: { hex: '#1E3A5F', name: 'Drivera Navy', usage: 'Headers, primary actions' },
+        primary: { hex: '#1E3A5F', name: 'Carbuyinghub Navy', usage: 'Headers, primary actions' },
         secondary: { hex: '#00B4D8', name: 'Road Blue', usage: 'Links, highlights, accents' },
         accent: { hex: '#FF6B35', name: 'Signal Orange', usage: 'CTAs, alerts, important actions' },
         success: { hex: '#2EC4B6', name: 'Green Light', usage: 'Confirmations, positive states' },

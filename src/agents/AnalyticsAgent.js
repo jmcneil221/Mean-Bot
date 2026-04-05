@@ -66,7 +66,7 @@ export class AnalyticsAgent extends Agent {
         ],
         driverSpecific: [
           'Total driver earnings tracked through platform',
-          'Average earnings increase after using Drivera',
+          'Average earnings increase after using Carbuyinghub',
           'Tax deductions identified per user',
           'Cross-platform optimization usage',
         ],

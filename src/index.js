@@ -1,5 +1,5 @@
 /**
- * Drivera AI Agent Coordinator System
+ * Carbuyinghub AI Agent Coordinator System
  * ====================================
  * Entry point — initializes all agents and the coordination infrastructure.
  *
@@ -44,7 +44,7 @@ import { QAAgent } from './agents/QAAgent.js';
  * Bootstrap the entire agent system.
  * Returns the coordinator with all agents registered and ready.
  */
-export function createDriveraSystem() {
+export function createCarbuyinghubSystem() {
   // Core infrastructure
   const taskManager = new TaskManager();
   const budgetManager = new BudgetManager();
@@ -85,11 +85,11 @@ export function createDriveraSystem() {
 // Auto-run if executed directly
 const isMainModule = process.argv[1] && import.meta.url.endsWith(process.argv[1].replace(/\\/g, '/'));
 if (isMainModule || process.argv[1]?.endsWith('index.js')) {
-  const system = createDriveraSystem();
+  const system = createCarbuyinghubSystem();
   const { coordinator } = system;
 
   console.log('\n╔══════════════════════════════════════════════════════╗');
-  console.log('║         DRIVERA AI AGENT COORDINATOR SYSTEM         ║');
+  console.log('║         CARBUYINGHUB AI AGENT COORDINATOR SYSTEM         ║');
   console.log('║        "Your AI Team, Your Rules, Your App"         ║');
   console.log('╠══════════════════════════════════════════════════════╣');
   console.log('║  Budget Rule: NO spending without owner approval    ║');
@@ -102,9 +102,9 @@ if (isMainModule || process.argv[1]?.endsWith('index.js')) {
   }
   console.log('─'.repeat(55));
 
-  // Demo: Plan the Drivera project
+  // Demo: Plan the Carbuyinghub project
   const plan = coordinator.planProject({
-    title: 'Build Drivera — The Ultimate Driver Platform',
+    title: 'Build Carbuyinghub.com — The Ultimate Car Buying Platform',
     description: 'A dynamic app and website for drivers of all types: rideshare, delivery, trucking, and personal driving.',
   });
 

@@ -50,15 +50,15 @@ export class LegalAgent extends Agent {
       agent: this.name,
       task: task.title,
       document: {
-        title: 'Drivera Terms of Service',
+        title: 'Carbuyinghub Terms of Service',
         sections: [
           {
             heading: '1. Acceptance of Terms',
-            summary: 'By accessing or using Drivera, users agree to be bound by these terms. Must be 18+ to use the service.',
+            summary: 'By accessing or using Carbuyinghub, users agree to be bound by these terms. Must be 18+ to use the service.',
           },
           {
             heading: '2. Description of Service',
-            summary: 'Drivera is a driver tools platform. We are NOT a transportation company. We provide tools for drivers to manage earnings, routes, vehicles, and connect with other drivers.',
+            summary: 'Carbuyinghub is a driver tools platform. We are NOT a transportation company. We provide tools for drivers to manage earnings, routes, vehicles, and connect with other drivers.',
           },
           {
             heading: '3. User Accounts',
@@ -66,11 +66,11 @@ export class LegalAgent extends Agent {
           },
           {
             heading: '4. Driver-Specific Terms',
-            summary: 'Drivera does not employ drivers. Users maintain independent contractor status with their platforms. We do not control driving activities.',
+            summary: 'Carbuyinghub does not employ drivers. Users maintain independent contractor status with their platforms. We do not control driving activities.',
           },
           {
             heading: '5. Data & Earnings Integration',
-            summary: 'Users authorize Drivera to access earnings data from connected platforms. Data used only for user\'s benefit. We never sell individual driver data.',
+            summary: 'Users authorize Carbuyinghub to access earnings data from connected platforms. Data used only for user\'s benefit. We never sell individual driver data.',
           },
           {
             heading: '6. Subscription & Payments',
@@ -82,11 +82,11 @@ export class LegalAgent extends Agent {
           },
           {
             heading: '8. Intellectual Property',
-            summary: 'Drivera owns the platform. Users own their data. User-generated content grants us display license. No reverse engineering.',
+            summary: 'Carbuyinghub owns the platform. Users own their data. User-generated content grants us display license. No reverse engineering.',
           },
           {
             heading: '9. Limitation of Liability',
-            summary: 'Drivera provides tools "as-is". Not liable for driving decisions, earnings outcomes, or third-party platform changes. Maximum liability limited to subscription fees paid.',
+            summary: 'Carbuyinghub provides tools "as-is". Not liable for driving decisions, earnings outcomes, or third-party platform changes. Maximum liability limited to subscription fees paid.',
           },
           {
             heading: '10. Dispute Resolution',
@@ -121,7 +121,7 @@ export class LegalAgent extends Agent {
       agent: this.name,
       task: task.title,
       document: {
-        title: 'Drivera Privacy Policy',
+        title: 'Carbuyinghub Privacy Policy',
         sections: [
           {
             heading: 'Data We Collect',

@@ -1,25 +1,25 @@
 /**
- * Interactive CLI for the Drivera Agent Coordinator System.
+ * Interactive CLI for the Carbuyinghub Agent Coordinator System.
  * Allows the owner to interact with agents, approve budgets, and manage tasks.
  */
 
 import { createReadStream } from 'fs';
 import { createInterface } from 'readline';
-import { createDriveraSystem } from './index.js';
+import { createCarbuyinghubSystem } from './index.js';
 
-const system = createDriveraSystem();
+const system = createCarbuyinghubSystem();
 const { coordinator, budgetManager, taskManager } = system;
 
 const rl = createInterface({
   input: process.stdin,
   output: process.stdout,
-  prompt: '\ndrivera> ',
+  prompt: '\ncarbuyinghub> ',
 });
 
 function printHelp() {
   console.log(`
 ╔══════════════════════════════════════════════════════════╗
-║              DRIVERA AGENT CLI — COMMANDS                ║
+║              CARBUYINGHUB AGENT CLI — COMMANDS                ║
 ╠══════════════════════════════════════════════════════════╣
 ║                                                          ║
 ║  AGENTS                                                  ║
@@ -144,8 +144,8 @@ async function handleCommand(line) {
 
     case 'plan':
       const plan = coordinator.planProject({
-        title: 'Build Drivera — The Ultimate Driver Platform',
-        description: 'Dynamic app and website for all drivers.',
+        title: 'Build Carbuyinghub.com — The Ultimate Car Buying Platform',
+        description: 'Dynamic app and website for car buyers, dealers, and lenders.',
       });
       console.log(`\n  Project: ${plan.goal}\n`);
       for (const phase of plan.phases) {
@@ -225,40 +225,40 @@ async function handleCommand(line) {
       break;
 
     case 'design':
-      await runAgentTask('Graphic Designer', 'create_brand_identity', 'Drivera Brand Identity');
+      await runAgentTask('Graphic Designer', 'create_brand_identity', 'Carbuyinghub Brand Identity');
       break;
     case 'layout':
-      await runAgentTask('Layout Specialist', 'create_wireframes', 'Drivera Site Layout & Wireframes');
+      await runAgentTask('Layout Specialist', 'create_wireframes', 'Carbuyinghub Site Layout & Wireframes');
       break;
     case 'api':
-      await runAgentTask('API Architect', 'design_api', 'Drivera API Architecture');
+      await runAgentTask('API Architect', 'design_api', 'Carbuyinghub API Architecture');
       break;
     case 'research':
-      await runAgentTask('Researcher', 'market_research', 'Drivera Market Research');
+      await runAgentTask('Researcher', 'market_research', 'Carbuyinghub Market Research');
       break;
     case 'competitive':
-      await runAgentTask('Competitive Analyst', 'analyze_competitors', 'Drivera Competitive Analysis');
+      await runAgentTask('Competitive Analyst', 'analyze_competitors', 'Carbuyinghub Competitive Analysis');
       break;
     case 'security':
-      await runAgentTask('Security Expert', 'security_audit', 'Drivera Security Audit');
+      await runAgentTask('Security Expert', 'security_audit', 'Carbuyinghub Security Audit');
       break;
     case 'legal':
-      await runAgentTask('Legal Advisor', 'draft_tos', 'Drivera Terms of Service');
+      await runAgentTask('Legal Advisor', 'draft_tos', 'Carbuyinghub Terms of Service');
       break;
     case 'ux':
-      await runAgentTask('UX Specialist', 'design_user_flows', 'Drivera User Flows');
+      await runAgentTask('UX Specialist', 'design_user_flows', 'Carbuyinghub User Flows');
       break;
     case 'devops':
-      await runAgentTask('DevOps Engineer', 'setup_infrastructure', 'Drivera Infrastructure Plan');
+      await runAgentTask('DevOps Engineer', 'setup_infrastructure', 'Carbuyinghub Infrastructure Plan');
       break;
     case 'analytics':
-      await runAgentTask('Analytics Specialist', 'define_kpis', 'Drivera KPIs & Analytics');
+      await runAgentTask('Analytics Specialist', 'define_kpis', 'Carbuyinghub KPIs & Analytics');
       break;
     case 'content':
-      await runAgentTask('Content Strategist', 'create_content_strategy', 'Drivera Content Strategy');
+      await runAgentTask('Content Strategist', 'create_content_strategy', 'Carbuyinghub Content Strategy');
       break;
     case 'qa':
-      await runAgentTask('QA Tester', 'create_test_plan', 'Drivera QA Test Plan');
+      await runAgentTask('QA Tester', 'create_test_plan', 'Carbuyinghub QA Test Plan');
       break;
 
     case 'messages':
@@ -288,7 +288,7 @@ async function handleCommand(line) {
 
     case 'exit':
     case 'quit':
-      console.log('  Shutting down Drivera Agent System. Goodbye!');
+      console.log('  Shutting down Carbuyinghub Agent System. Goodbye!');
       rl.close();
       process.exit(0);
       break;
@@ -300,7 +300,7 @@ async function handleCommand(line) {
 
 // Start CLI
 console.log('\n╔══════════════════════════════════════════════════════╗');
-console.log('║       DRIVERA AI AGENT COORDINATOR — CLI            ║');
+console.log('║       CARBUYINGHUB AI AGENT COORDINATOR — CLI            ║');
 console.log('║   Type "help" for commands | "exit" to quit         ║');
 console.log('║   Budget Rule: NO spending without YOUR approval    ║');
 console.log('╚══════════════════════════════════════════════════════╝');

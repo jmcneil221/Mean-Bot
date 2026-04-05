@@ -1,12 +1,12 @@
 import { describe, it, before } from 'node:test';
 import assert from 'node:assert/strict';
-import { createDriveraSystem } from '../index.js';
+import { createCarbuyinghubSystem } from '../index.js';
 
-describe('Drivera Agent Coordinator System', () => {
+describe('Carbuyinghub Agent Coordinator System', () => {
   let system;
 
   before(() => {
-    system = createDriveraSystem();
+    system = createCarbuyinghubSystem();
   });
 
   it('should initialize with coordinator and 12 agents', () => {
@@ -86,7 +86,7 @@ describe('Drivera Agent Coordinator System', () => {
 
   it('should assign and process tasks', async () => {
     const task = system.coordinator.assignTask({
-      title: 'Design Drivera Logo',
+      title: 'Design Carbuyinghub Logo',
       assignTo: 'Graphic Designer',
       priority: 'high',
     });

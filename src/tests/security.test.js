@@ -92,7 +92,7 @@ describe('Tokenization Vault', () => {
   it('should detokenize with proper authorization', () => {
     const vault = new TokenVault(TEST_MASTER_KEY);
     const token = vault.tokenize('555-66-7777', 'ssn');
-    const original = vault.detokenize(token, 'Credit check', 'admin@drivera.com');
+    const original = vault.detokenize(token, 'Credit check', 'admin@carbuyinghub.com');
     assert.equal(original, '555-66-7777');
   });
 
