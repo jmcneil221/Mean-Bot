@@ -1,17 +1,32 @@
 {
-  "name": "carbuyinghub-agent-coordinator",
+  "name": "carbuyinghub",
   "version": "1.0.0",
-  "description": "AI Agent Coordinator System for Carbuyinghub.com - a dynamic car buying app and website",
-  "main": "src/index.js",
+  "private": true,
+  "description": "Carbuyinghub.com - The car buying platform with secure online credit applications",
   "type": "module",
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "node --watch src/index.js",
+    "dev": "next dev",
+    "build": "next build",
+    "start:web": "next start",
+    "lint": "next lint",
     "agents": "node src/cli.js",
+    "agents:start": "node src/index.js",
     "test": "node --test src/tests/**/*.test.js"
   },
-  "keywords": ["carbuyinghub", "car-buying", "ai-agents", "coordinator", "multi-agent"],
+  "keywords": ["carbuyinghub", "car-buying", "credit-application", "auto-marketplace"],
   "license": "MIT",
-  "dependencies": {},
-  "devDependencies": {}
+  "dependencies": {
+    "next": "^14.2.0",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "autoprefixer": "^10.4.0",
+    "postcss": "^8.4.0",
+    "tailwindcss": "^3.4.0",
+    "typescript": "^5.4.0"
+  }
 }
