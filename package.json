@@ -13,9 +13,16 @@
     "agents:start": "node src/index.js",
     "test": "node --test src/tests/**/*.test.js"
   },
-  "keywords": ["carbuyinghub", "car-buying", "credit-application", "auto-marketplace"],
+  "keywords": [
+    "carbuyinghub",
+    "car-buying",
+    "credit-application",
+    "auto-marketplace"
+  ],
   "license": "MIT",
   "dependencies": {
+    "@supabase/ssr": "^0.10.0",
+    "@supabase/supabase-js": "^2.102.1",
     "next": "^14.2.0",
     "react": "^18.3.0",
     "react-dom": "^18.3.0"
