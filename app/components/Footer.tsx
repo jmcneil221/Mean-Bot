@@ -1,15 +1,21 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Footer() {
   return (
-    <footer className="bg-brand-navy text-white">
+    <footer className="bg-brand-charcoal text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand */}
           <div>
-            <h3 className="text-xl font-bold mb-4">
-              Carbuyinghub<span className="text-brand-sky">.com</span>
-            </h3>
+            <Image
+              src="/brand/logo-white.png"
+              alt="CarBuyingHub.com"
+              width={200}
+              height={200}
+              className="h-24 w-auto mb-4"
+            />
+            <h3 className="sr-only">CarBuyingHub.com</h3>
             <p className="text-gray-300 text-sm">
               Your trusted car buying destination. Search vehicles, apply for credit, and connect with dealers — all in one place.
             </p>

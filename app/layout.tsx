@@ -15,11 +15,17 @@ export const metadata: Metadata = {
     siteName: 'Carbuyinghub.com',
     type: 'website',
     locale: 'en_US',
+    images: [{ url: '/brand/logo-primary.png', width: 1024, height: 1024, alt: 'CarBuyingHub.com' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Carbuyinghub.com',
     description: 'Find your perfect car and get approved today.',
+    images: ['/brand/logo-primary.png'],
+  },
+  icons: {
+    icon: '/favicon.png',
+    apple: '/brand/apple-touch-icon.png',
   },
   robots: {
     index: true,

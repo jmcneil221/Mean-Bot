@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState } from 'react';
 
 export default function Header() {
@@ -11,12 +12,17 @@ export default function Header() {
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-brand-blue rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">CB</span>
-            </div>
-            <span className="text-xl font-bold text-brand-navy">
-              Carbuyinghub<span className="text-brand-blue">.com</span>
+          <Link href="/" className="flex items-center gap-3" aria-label="CarBuyingHub.com home">
+            <Image
+              src="/brand/logo-icon.png"
+              alt=""
+              width={44}
+              height={44}
+              priority
+              className="h-11 w-11"
+            />
+            <span className="text-xl font-bold text-brand-charcoal hidden sm:inline">
+              CarBuyingHub<span className="text-brand-burgundy">.com</span>
             </span>
           </Link>
 
