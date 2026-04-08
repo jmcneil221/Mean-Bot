@@ -1,12 +1,18 @@
 import type { Metadata } from 'next';
+import { redirect } from 'next/navigation';
 import CreditApplicationForm from '../../components/CreditApplicationForm';
+import { createClient } from '@/lib/supabase/server';
 
 export const metadata: Metadata = {
   title: 'Apply for Credit',
   description: 'Submit a secure online credit application. Bank-level encryption protects your personal information. All credit levels welcome.',
 };
 
-export default function ApplyPage() {
+export default async function ApplyPage() {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) redirect('/login?next=/apply');
+
   return (
     <div className="bg-gray-50 min-h-screen">
       {/* Header */}
