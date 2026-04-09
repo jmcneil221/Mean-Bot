@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { createAdminClient } from '@/lib/supabase/admin';
+import { sendNewApplicationAlert, sendApplicationReceipt } from '@/lib/email';
 import { encryptField } from '@/src/security/encryption.js';
 import { TokenVault } from '@/src/security/tokenization.js';
 
@@ -133,6 +134,32 @@ export async function POST(request: NextRequest) {
       metadata: { ssn_last4: ssnLast4 },
       hash: ssnToken, // placeholder — real chained hash will replace this
     });
+
+    // ---- Notifications (non-blocking: email failures must not fail submission) ----
+    const applicantName = `${body.firstName} ${body.lastName}`.trim();
+    const results = await Promise.allSettled([
+      sendNewApplicationAlert({
+        applicationId: app.id,
+        applicantName,
+        applicantEmail: body.email,
+        applicantPhone: body.phone,
+        ssnLast4,
+        annualIncome: annualIncomeCents,
+        requestedAmount: requestedAmountCents,
+        submittedAt: app.submitted_at,
+      }),
+      sendApplicationReceipt({
+        to: body.email,
+        applicantName,
+        applicationId: app.id,
+        ssnLast4,
+      }),
+    ]);
+    for (const r of results) {
+      if (r.status === 'rejected') {
+        console.error('[credit-application] email send failed', r.reason);
+      }
+    }
 
     return NextResponse.json({
       success: true,
