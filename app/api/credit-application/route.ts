@@ -71,6 +71,7 @@ export async function POST(request: NextRequest) {
 
     const ssnToken = getVault().tokenize(cleanSSN);
     const ssnLast4 = cleanSSN.slice(-4);
+    const encryptedSsn = JSON.stringify(encryptField(cleanSSN, masterKey));
 
     const encryptedDob = JSON.stringify(encryptField(body.dateOfBirth, masterKey));
     const encryptedAddress = JSON.stringify(
@@ -102,6 +103,7 @@ export async function POST(request: NextRequest) {
         user_id: user.id,
         ssn_token: ssnToken,
         ssn_last4: ssnLast4,
+        encrypted_ssn: encryptedSsn,
         encrypted_dob: encryptedDob,
         encrypted_address: encryptedAddress,
         encrypted_employment: encryptedEmployment,
@@ -119,8 +121,9 @@ export async function POST(request: NextRequest) {
 
     if (insertErr || !app) {
       console.error('credit_applications insert failed', insertErr);
+      const detail = insertErr?.message || 'Unknown database error';
       return NextResponse.json(
-        { success: false, errors: ['Failed to save application.'] },
+        { success: false, errors: [`Failed to save application: ${detail}`] },
         { status: 500 },
       );
     }

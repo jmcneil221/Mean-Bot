@@ -62,27 +62,63 @@ export default function CreditApplicationForm() {
     setSubmitting(true);
     setResult(null);
 
+    const payload = {
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      email: formData.email,
+      phone: formData.phone,
+      dateOfBirth: formData.dateOfBirth,
+      ssn: formData.ssn,
+      address: {
+        street: formData.street,
+        city: formData.city,
+        state: formData.state,
+        zipCode: formData.zipCode,
+      },
+      employmentStatus: formData.employmentStatus,
+      annualIncome: parseFloat(formData.annualIncome) || 0,
+      monthlyHousingPayment: parseFloat(formData.monthlyHousingPayment) || 0,
+      driversLicenseNumber: formData.driversLicenseNumber,
+      applicationType: formData.applicationType,
+    };
+
     try {
       const res = await fetch('/api/credit-application', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...formData,
-          address: {
-            street: formData.street,
-            city: formData.city,
-            state: formData.state,
-            zipCode: formData.zipCode,
-          },
-          annualIncome: parseFloat(formData.annualIncome) || 0,
-          monthlyHousingPayment: parseFloat(formData.monthlyHousingPayment) || 0,
-        }),
+        body: JSON.stringify(payload),
       });
 
-      const data = await res.json();
+      let data;
+      try {
+        data = await res.json();
+      } catch {
+        console.error('[CreditApp] Non-JSON response', res.status, res.statusText);
+        setResult({
+          success: false,
+          errors: [`Server returned ${res.status} ${res.statusText}. Check the console for details.`],
+        });
+        return;
+      }
+
+      if (!res.ok && !data.errors) {
+        data.errors = [`Request failed with status ${res.status}`];
+      }
+
+      if (!data.success && data.errors) {
+        console.error('[CreditApp] Submission errors:', data.errors);
+      }
+
       setResult(data);
-    } catch {
-      setResult({ success: false, errors: ['Network error. Please try again.'] });
+    } catch (err) {
+      console.error('[CreditApp] Network/fetch error:', err);
+      setResult({
+        success: false,
+        errors: [
+          'Network error — could not reach the server.',
+          err instanceof Error ? err.message : String(err),
+        ],
+      });
     } finally {
       setSubmitting(false);
     }
