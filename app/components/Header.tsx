@@ -7,25 +7,38 @@ export default async function Header() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
 
+  // Check admin role for showing Admin link
+  let isAdmin = false;
+  if (user) {
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('role')
+      .eq('id', user.id)
+      .single();
+    isAdmin = profile?.role === 'admin';
+  }
+
   return (
-    <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
-      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+    <header className="bg-white/80 backdrop-blur-md border-b border-[#E8E4DE] sticky top-0 z-50">
+      <nav className="max-w-6xl mx-auto px-6 lg:px-8">
+        <div className="flex items-center justify-between h-[72px]">
+          {/* Logo */}
           <Link href="/" className="flex items-center gap-3" aria-label="CarBuyingHub.com home">
             <Image
               src="/brand/logo-icon.png"
               alt=""
-              width={44}
-              height={44}
+              width={40}
+              height={40}
               priority
-              className="h-11 w-11"
+              className="h-10 w-10"
             />
-            <span className="text-xl font-bold text-brand-charcoal hidden sm:inline">
-              CarBuyingHub<span className="text-brand-burgundy">.com</span>
+            <span className="text-lg font-serif font-bold text-charcoal hidden sm:inline tracking-tight">
+              CarBuyingHub
             </span>
           </Link>
 
-          <HeaderNav userEmail={user?.email ?? null} />
+          {/* Navigation */}
+          <HeaderNav userEmail={user?.email ?? null} isAdmin={isAdmin} />
         </div>
       </nav>
     </header>

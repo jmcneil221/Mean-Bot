@@ -2,42 +2,113 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --brand-navy: #1E3A5F;
-  --brand-blue: #0070F3;
-  --brand-sky: #00B4D8;
-  --brand-orange: #FF6B35;
-  --brand-green: #2EC4B6;
-}
+/* ─── Quiet Luxury Design System ─── */
 
-body {
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  -webkit-font-smoothing: antialiased;
+@layer base {
+  :root {
+    --color-parchment: #F9F8F6;
+    --color-charcoal: #2C2C2C;
+    --color-burgundy: #6B1D2F;
+    --color-gold: #A8896B;
+    --color-border: #E8E4DE;
+  }
+
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Serif headings by default */
+  h1, h2, h3 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 700;
+    color: var(--color-charcoal);
+  }
+
+  /* Refined focus ring */
+  *:focus-visible {
+    outline: 2px solid var(--color-burgundy);
+    outline-offset: 2px;
+  }
 }
 
 @layer components {
+  /* ── Buttons ── */
   .btn-primary {
-    @apply bg-brand-blue text-white px-6 py-3 rounded-lg font-semibold
-           hover:bg-blue-700 transition-colors duration-200
-           focus:outline-none focus:ring-2 focus:ring-brand-blue focus:ring-offset-2;
+    @apply inline-flex items-center justify-center
+           bg-burgundy text-white px-7 py-3 rounded
+           text-sm font-medium uppercase tracking-premium
+           transition-all duration-300 ease-out
+           hover:bg-burgundy-dark
+           focus:outline-none focus:ring-2 focus:ring-burgundy focus:ring-offset-2 focus:ring-offset-parchment;
   }
+
   .btn-secondary {
-    @apply bg-white text-brand-navy border-2 border-brand-navy px-6 py-3 rounded-lg font-semibold
-           hover:bg-gray-50 transition-colors duration-200;
+    @apply inline-flex items-center justify-center
+           bg-transparent text-charcoal border border-charcoal px-7 py-3 rounded
+           text-sm font-medium uppercase tracking-premium
+           transition-all duration-300 ease-out
+           hover:bg-charcoal hover:text-white
+           focus:outline-none focus:ring-2 focus:ring-charcoal focus:ring-offset-2;
   }
+
   .btn-cta {
-    @apply bg-brand-orange text-white px-8 py-4 rounded-lg font-bold text-lg
-           hover:bg-orange-600 transition-colors duration-200 shadow-lg hover:shadow-xl;
+    @apply inline-flex items-center justify-center
+           bg-burgundy text-white px-10 py-4 rounded
+           text-base font-semibold uppercase tracking-premium
+           transition-all duration-300 ease-out shadow-sm
+           hover:bg-burgundy-dark hover:shadow-md;
   }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center
+           bg-transparent text-burgundy px-5 py-2.5 rounded
+           text-sm font-medium
+           transition-colors duration-200
+           hover:bg-burgundy hover:bg-opacity-5;
+  }
+
+  /* ── Cards ── */
   .card {
-    @apply bg-white rounded-xl shadow-md border border-gray-100 p-6;
+    @apply bg-white rounded-lg shadow-sm border border-[#E8E4DE] p-8;
   }
+
+  /* ── Form Inputs ── */
   .input-field {
-    @apply w-full px-4 py-3 border border-gray-300 rounded-lg
-           focus:outline-none focus:ring-2 focus:ring-brand-blue focus:border-transparent
-           placeholder:text-gray-400;
+    @apply w-full px-4 py-3 bg-white border border-[#E8E4DE] rounded
+           text-charcoal text-sm
+           placeholder:text-gray-400
+           transition-colors duration-200
+           focus:outline-none focus:border-burgundy focus:ring-1 focus:ring-burgundy;
   }
+
+  /* ── Typography ── */
   .section-heading {
-    @apply text-3xl md:text-4xl font-bold text-brand-navy;
+    @apply font-serif text-3xl md:text-4xl font-bold text-charcoal;
   }
+
+  .section-subheading {
+    @apply text-gold text-sm uppercase tracking-premium font-medium;
+  }
+
+  /* ── Nav Link (uppercase quiet luxury style) ── */
+  .nav-link {
+    @apply text-xs uppercase tracking-premium text-charcoal/70
+           transition-colors duration-200
+           hover:text-burgundy;
+  }
+  .nav-link-active {
+    @apply text-xs uppercase tracking-premium text-burgundy font-medium;
+  }
+
+  /* ── Divider ── */
+  .divider {
+    @apply border-t border-[#E8E4DE];
+  }
+}
+
+/* ── Subtle selection color ── */
+::selection {
+  background-color: rgba(107, 29, 47, 0.12);
+  color: var(--color-charcoal);
 }
