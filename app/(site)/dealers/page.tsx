@@ -3,28 +3,10 @@ import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'Dealer Partnership Plans',
-  description: 'List your inventory on Carbuyinghub.com. Reach qualified car buyers with secure credit applications. Founding 30 CT dealer spots now open.',
+  description: 'Exclusive dealer partnerships on CarBuyingHub. Founding 30 early adopter investment for Connecticut dealerships. Zero monthly fees for life.',
 };
 
-const plans = [
-  {
-    tier: 'founding',
-    name: 'Founding 30',
-    subtitle: 'Connecticut Launch Partners',
-    price: 0,
-    priceNote: 'Free for 6 months',
-    features: [
-      'Up to 50 vehicle listings',
-      'Receive credit applications',
-      'Featured "Founding Dealer" badge',
-      'Priority search placement',
-      'Lead management dashboard',
-      'Monthly analytics report',
-      'Locked-in rate of $99/mo after trial',
-    ],
-    cta: 'Claim Your Spot',
-    limit: 'Limited to 30 CT dealers',
-  },
+const standardPlans = [
   {
     tier: 'boutique',
     name: 'Boutique',
@@ -39,7 +21,6 @@ const plans = [
       'Monthly analytics report',
     ],
     cta: 'Get Started',
-    limit: null,
   },
   {
     tier: 'small',
@@ -56,7 +37,6 @@ const plans = [
       'Inventory management tools',
     ],
     cta: 'Get Started',
-    limit: null,
   },
   {
     tier: 'enterprise',
@@ -74,7 +54,6 @@ const plans = [
       'Multi-location support',
     ],
     cta: 'Contact Sales',
-    limit: null,
   },
 ];
 
@@ -82,6 +61,14 @@ function CheckIcon({ className }: { className?: string }) {
   return (
     <svg className={className || 'w-4 h-4'} fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
       <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+    </svg>
+  );
+}
+
+function DiamondIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className || 'w-4 h-4'} fill="currentColor" viewBox="0 0 20 20">
+      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
     </svg>
   );
 }
@@ -111,7 +98,7 @@ export default function DealersPage() {
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
             <p className="section-subheading mb-3">The Advantage</p>
-            <h2 className="section-heading">Why Carbuyinghub.com?</h2>
+            <h2 className="section-heading">Why CarBuyingHub?</h2>
           </div>
           <div className="grid md:grid-cols-3 gap-10">
             {[
@@ -125,8 +112,8 @@ export default function DealersPage() {
                 ),
               },
               {
-                title: 'Lower Cost Per Lead',
-                desc: 'Plans starting at $149/month. A fraction of what AutoTrader or Cars.com charge per listing.',
+                title: 'Eliminate Monthly Overhead',
+                desc: 'Founding partners pay zero monthly fees — for life. Replace $36k–$84k in annual platform costs with a one-time investment.',
                 icon: (
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -155,62 +142,135 @@ export default function DealersPage() {
         </div>
       </section>
 
-      {/* Pricing */}
-      <section className="py-24">
+      {/* ────────────────────────────────────────────────────────────── */}
+      {/* Founding 30 — $100k Early Adopter Investment                  */}
+      {/* ────────────────────────────────────────────────────────────── */}
+      <section className="py-24 md:py-28">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
-            <p className="section-subheading mb-3">Membership Tiers</p>
-            <h2 className="section-heading">Dealer Partnership Plans</h2>
+            <p className="section-subheading mb-3">Exclusive Opportunity</p>
+            <h2 className="section-heading">Founding 30</h2>
+            <p className="text-charcoal/40 text-sm mt-3 max-w-lg mx-auto">
+              A limited early-adopter investment for Connecticut Dealer Principals
+            </p>
           </div>
 
-          {/* Founding 30 — Featured Card */}
-          <div className="mb-12">
-            <div className="card relative overflow-hidden border-gold/40 bg-gradient-to-br from-white to-parchment">
-              {/* Gold corner accent */}
-              <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-gold/10 to-transparent" />
+          <div className="relative overflow-hidden rounded-lg border border-gold/30 bg-gradient-to-br from-white via-white to-parchment shadow-sm">
+            {/* Gold corner accents */}
+            <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-bl from-gold/[0.07] to-transparent" />
+            <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-gold/[0.05] to-transparent" />
 
-              <div className="flex flex-col lg:flex-row lg:items-center gap-8">
-                <div className="flex-1">
-                  <div className="inline-flex items-center gap-2 bg-gold/10 text-gold border border-gold/20 px-3 py-1 rounded-full text-xs font-medium uppercase tracking-premium mb-4">
-                    <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                    Limited — 30 Spots
-                  </div>
-                  <h3 className="font-serif text-2xl md:text-3xl font-bold text-charcoal mb-1">
-                    Founding 30
-                  </h3>
-                  <p className="text-gold text-sm font-medium mb-3">Connecticut Launch Partners</p>
-                  <p className="text-charcoal/50 text-sm leading-relaxed max-w-lg mb-6">
-                    Be among the first 30 Connecticut dealers on CarBuyingHub. Get six months free
-                    with a locked-in rate after — and a permanent &quot;Founding Dealer&quot; badge
-                    that builds trust with every buyer who sees your listings.
-                  </p>
-                  <div className="flex items-baseline gap-2 mb-6">
-                    <span className="font-serif text-4xl font-bold text-charcoal">$0</span>
-                    <span className="text-charcoal/40 text-sm">for 6 months, then $99/mo</span>
-                  </div>
-                  <a href="mailto:dealers@carbuyinghub.com?subject=Founding%2030%20Application" className="btn-primary">
-                    Claim Your Spot
-                  </a>
+            <div className="relative p-8 md:p-12 lg:p-16">
+              {/* Badge */}
+              <div className="flex justify-center mb-10">
+                <div className="inline-flex items-center gap-2.5 bg-charcoal text-gold px-5 py-2 rounded-full text-xs font-medium uppercase tracking-premium">
+                  <DiamondIcon className="w-3.5 h-3.5" />
+                  Strictly Limited — 30 Connecticut Rooftops
+                  <DiamondIcon className="w-3.5 h-3.5" />
                 </div>
-                <div className="flex-1">
-                  <ul className="space-y-3">
-                    {plans[0].features.map(f => (
-                      <li key={f} className="flex items-start gap-3 text-sm text-charcoal/70">
-                        <CheckIcon className="w-4 h-4 text-gold shrink-0 mt-0.5" />
-                        {f}
-                      </li>
-                    ))}
-                  </ul>
+              </div>
+
+              {/* Investment headline */}
+              <div className="text-center mb-12">
+                <p className="text-gold text-xs uppercase tracking-premium font-medium mb-4">
+                  Per-Rooftop Investment
+                </p>
+                <div className="flex items-baseline justify-center gap-2">
+                  <span className="font-serif text-5xl md:text-6xl font-bold text-charcoal">$100,000</span>
                 </div>
+                <p className="text-charcoal/40 text-sm mt-2">One-time commitment. Zero monthly fees — forever.</p>
+              </div>
+
+              {/* Tranche breakdown */}
+              <div className="grid sm:grid-cols-2 gap-4 max-w-2xl mx-auto mb-14">
+                <div className="bg-parchment rounded-lg p-6 text-center border border-[#E8E4DE]">
+                  <p className="text-xs uppercase tracking-premium text-gold font-medium mb-2">Tranche 1</p>
+                  <p className="font-serif text-2xl font-bold text-charcoal mb-1">$50,000</p>
+                  <p className="text-charcoal/40 text-xs">Commitment Due Now</p>
+                </div>
+                <div className="bg-parchment rounded-lg p-6 text-center border border-[#E8E4DE]">
+                  <p className="text-xs uppercase tracking-premium text-gold font-medium mb-2">Tranche 2</p>
+                  <p className="font-serif text-2xl font-bold text-charcoal mb-1">$50,000</p>
+                  <p className="text-charcoal/40 text-xs">Due at Commercial Launch</p>
+                </div>
+              </div>
+
+              {/* ROI Advantages */}
+              <div className="max-w-3xl mx-auto mb-14">
+                <p className="text-xs uppercase tracking-premium text-gold font-medium text-center mb-8">
+                  Lifetime Founder Advantages
+                </p>
+                <div className="grid sm:grid-cols-2 gap-x-12 gap-y-6">
+                  {[
+                    {
+                      title: 'Zero Monthly Fees — For Life',
+                      desc: 'Eliminates $36k–$84k in annual platform overhead. Your investment replaces recurring costs permanently.',
+                    },
+                    {
+                      title: 'Locked-In Success Fee',
+                      desc: 'Guaranteed $150 per vehicle sold through CarBuyingHub. You only pay when you close — aligned incentives.',
+                    },
+                    {
+                      title: 'Sub-18 Month Projected ROI',
+                      desc: 'Based on conservative volume projections for a single Connecticut rooftop. Breakeven accelerates with volume.',
+                    },
+                    {
+                      title: 'Permanent "Lifetime Founder" Badge',
+                      desc: 'Displayed on every listing and dealer profile within the CarBuyingHub ecosystem. Builds buyer trust from day one.',
+                    },
+                    {
+                      title: 'Geographic Exclusivity',
+                      desc: 'Strictly limited to 30 Connecticut dealerships. Once filled, this tier closes permanently — no exceptions.',
+                    },
+                    {
+                      title: 'Priority Platform Access',
+                      desc: 'Unlimited vehicle listings, premium search placement, dedicated account manager, and DMS integration included.',
+                    },
+                  ].map(item => (
+                    <div key={item.title} className="flex gap-4">
+                      <div className="shrink-0 mt-1">
+                        <DiamondIcon className="w-4 h-4 text-gold" />
+                      </div>
+                      <div>
+                        <h4 className="text-sm font-semibold text-charcoal mb-1">{item.title}</h4>
+                        <p className="text-xs text-charcoal/50 leading-relaxed">{item.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* CTA */}
+              <div className="text-center">
+                <a
+                  href="mailto:dealers@carbuyinghub.com?subject=Founding%2030%20%E2%80%94%20Term%20Sheet%20Request"
+                  className="btn-primary"
+                >
+                  Request Term Sheet
+                </a>
+                <p className="text-charcoal/30 text-xs mt-4">
+                  For Dealer Principals only. Subject to qualification and geographic availability.
+                </p>
               </div>
             </div>
           </div>
+        </div>
+      </section>
 
-          {/* Standard Plans */}
+      {/* ────────────────────────────────────────────────────────────── */}
+      {/* Standard Plans                                                 */}
+      {/* ────────────────────────────────────────────────────────────── */}
+      <section className="border-t border-[#E8E4DE] py-24">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <p className="section-subheading mb-3">Monthly Plans</p>
+            <h2 className="section-heading">Dealer Partnership Plans</h2>
+            <p className="text-charcoal/40 text-sm mt-3">
+              For dealerships outside the Founding 30 program
+            </p>
+          </div>
           <div className="grid md:grid-cols-3 gap-8">
-            {plans.slice(1).map(plan => (
+            {standardPlans.map(plan => (
               <div key={plan.name} className="card flex flex-col">
                 <div className="mb-6">
                   <h3 className="font-serif text-xl font-bold text-gold mb-0.5">{plan.name}</h3>
@@ -256,8 +316,8 @@ export default function DealersPage() {
             Let&apos;s Build Something Together
           </h2>
           <p className="text-white/40 mb-10 leading-relaxed">
-            Have questions about which plan is right for your dealership?
-            Our team is here to help you find the perfect fit.
+            Whether you&apos;re a Founding 30 candidate or exploring monthly plans,
+            our team is here to find the right fit for your dealership.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a href="mailto:dealers@carbuyinghub.com" className="btn-primary">
