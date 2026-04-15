@@ -7,7 +7,7 @@
 //   RESEND_FROM_EMAIL      — optional; defaults to Resend's onboarding sender
 //                            until carbuyinghub.com domain DNS verifies.
 //   ADMIN_NOTIFY_EMAIL     — where internal "new application" alerts go.
-//                            Defaults to jmcneil221@gmail.com if unset.
+//                            Defaults to jmcneil@carbuyinghub.com if unset.
 
 import { Resend } from 'resend';
 
@@ -34,7 +34,7 @@ function getFrom(): string {
 }
 
 function getAdminEmail(): string {
-  return process.env.ADMIN_NOTIFY_EMAIL || 'jmcneil221@gmail.com';
+  return process.env.ADMIN_NOTIFY_EMAIL || 'jmcneil@carbuyinghub.com';
 }
 
 export async function sendEmail({ to, subject, html, replyTo }: SendArgs) {
