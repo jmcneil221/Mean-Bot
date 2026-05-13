@@ -1,72 +1,46 @@
 import Link from 'next/link';
-import Image from 'next/image';
 
 export default function Footer() {
+  const linkClass =
+    'text-sm text-white/40 hover:text-white transition-colors duration-200';
+
   return (
-    <footer className="bg-charcoal text-white">
-      <div className="max-w-6xl mx-auto px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
-          {/* Brand */}
-          <div className="md:col-span-1">
-            <Image
-              src="/brand/logo-white.png"
-              alt="CarBuyingHub.com"
-              width={180}
-              height={180}
-              className="h-20 w-auto mb-5"
-            />
-            <p className="text-white/50 text-sm leading-relaxed">
-              Your trusted destination for finding the perfect vehicle and securing financing — all in one place.
+    <footer className="bg-[#1A1A1A] text-white font-sans">
+      <div className="max-w-6xl mx-auto px-6 lg:px-8 py-16 md:py-20">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8">
+          <div className="md:col-span-5">
+            <p className="text-lg font-bold tracking-wider mb-4">CarBuyingHub</p>
+            <p className="text-sm text-white/35 leading-relaxed max-w-sm font-light">
+              Connecting serious buyers with the right dealership — directly,
+              privately, and without the noise.
             </p>
           </div>
-
-          {/* Buyers */}
-          <div>
-            <h4 className="text-xs uppercase tracking-premium text-white/40 mb-5 font-sans font-medium">
-              For Buyers
-            </h4>
-            <ul className="space-y-3 text-sm">
-              <li><Link href="/vehicles" className="text-white/60 hover:text-white transition-colors duration-200">Search Vehicles</Link></li>
-              <li><Link href="/apply" className="text-white/60 hover:text-white transition-colors duration-200">Apply for Credit</Link></li>
-              <li><Link href="/about" className="text-white/60 hover:text-white transition-colors duration-200">How It Works</Link></li>
+          <div className="md:col-span-2 md:col-start-7">
+            <p className="text-[10px] uppercase tracking-[0.25em] text-white/25 font-medium mb-5">Buyers</p>
+            <ul className="space-y-3">
+              <li><Link href="/vehicles" className={linkClass}>Inventory</Link></li>
+              <li><Link href="/about" className={linkClass}>How It Works</Link></li>
+              <li><a href="mailto:support@carbuyinghub.com" className={linkClass}>Contact Us</a></li>
             </ul>
           </div>
-
-          {/* Dealers */}
-          <div>
-            <h4 className="text-xs uppercase tracking-premium text-white/40 mb-5 font-sans font-medium">
-              For Dealers
-            </h4>
-            <ul className="space-y-3 text-sm">
-              <li><Link href="/dealers" className="text-white/60 hover:text-white transition-colors duration-200">List Your Inventory</Link></li>
-              <li><Link href="/dealers" className="text-white/60 hover:text-white transition-colors duration-200">Dealer Plans</Link></li>
-              <li><Link href="/dealers" className="text-white/60 hover:text-white transition-colors duration-200">Dealer Login</Link></li>
+          <div className="md:col-span-2">
+            <p className="text-[10px] uppercase tracking-[0.25em] text-white/25 font-medium mb-5">Dealers</p>
+            <ul className="space-y-3">
+              <li><Link href="/login" className={linkClass}>Dealer Login</Link></li>
+              <li><Link href="/partners" className={linkClass}>Become a Partner</Link></li>
             </ul>
           </div>
-
-          {/* Legal */}
-          <div>
-            <h4 className="text-xs uppercase tracking-premium text-white/40 mb-5 font-sans font-medium">
-              Legal
-            </h4>
-            <ul className="space-y-3 text-sm">
-              <li><Link href="/legal" className="text-white/60 hover:text-white transition-colors duration-200">Terms of Service</Link></li>
-              <li><Link href="/legal" className="text-white/60 hover:text-white transition-colors duration-200">Privacy Policy</Link></li>
-              <li><a href="mailto:support@carbuyinghub.com" className="text-white/60 hover:text-white transition-colors duration-200">Contact Us</a></li>
+          <div className="md:col-span-2">
+            <p className="text-[10px] uppercase tracking-[0.25em] text-white/25 font-medium mb-5">Legal</p>
+            <ul className="space-y-3">
+              <li><Link href="/legal/terms" className={linkClass}>Terms</Link></li>
+              <li><Link href="/legal/privacy" className={linkClass}>Privacy</Link></li>
             </ul>
           </div>
         </div>
-
-        <div className="border-t border-white/10 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-sm text-white/30">
-            &copy; {new Date().getFullYear()} Carbuyinghub.com. All rights reserved.
-          </p>
-          <div className="flex items-center gap-2 text-sm text-white/30">
-            <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
-            </svg>
-            Bank-level encryption protects your data
-          </div>
+        <div className="border-t border-white/[0.06] mt-14 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-xs text-white/20 font-light">&copy; {new Date().getFullYear()} CarBuyingHub. All rights reserved.</p>
+          <p className="text-xs text-white/20 font-light italic">A calmer path to the right car.</p>
         </div>
       </div>
     </footer>

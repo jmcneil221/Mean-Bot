@@ -1,7 +1,9 @@
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
     './app/**/*.{js,ts,jsx,tsx}',
+    './components/**/*.{js,ts,jsx,tsx}', // Added this just to be safe!
   ],
   theme: {
     extend: {
@@ -34,8 +36,9 @@ export default {
         },
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
-        serif: ['"Playfair Display"', 'Georgia', 'serif'],
+        // Here is the fix: mapping to the CSS variables Next.js generates
+        sans: ['var(--font-sans)', 'system-ui', 'sans-serif'],
+        serif: ['var(--font-serif)', 'Georgia', 'serif'],
       },
       letterSpacing: {
         premium: '0.15em',

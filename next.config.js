@@ -8,6 +8,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'cdn.carbuyinghub.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      },
     ],
   },
   async headers() {

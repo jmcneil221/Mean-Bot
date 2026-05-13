@@ -7,8 +7,6 @@ interface FormData {
   lastName: string;
   email: string;
   phone: string;
-  dateOfBirth: string;
-  ssn: string;
   street: string;
   city: string;
   state: string;
@@ -16,8 +14,6 @@ interface FormData {
   employmentStatus: string;
   annualIncome: string;
   monthlyHousingPayment: string;
-  driversLicenseNumber: string;
-  applicationType: string;
 }
 
 const initialFormData: FormData = {
@@ -25,8 +21,6 @@ const initialFormData: FormData = {
   lastName: '',
   email: '',
   phone: '',
-  dateOfBirth: '',
-  ssn: '',
   street: '',
   city: '',
   state: '',
@@ -34,8 +28,6 @@ const initialFormData: FormData = {
   employmentStatus: '',
   annualIncome: '',
   monthlyHousingPayment: '',
-  driversLicenseNumber: '',
-  applicationType: 'auto_loan',
 };
 
 const states = [
@@ -45,13 +37,13 @@ const states = [
   'VA','WA','WV','WI','WY','DC',
 ];
 
-const STEP_LABELS = ['Personal Info', 'Address & Employment', 'Review & Submit'];
+const STEP_LABELS = ['Contact Info', 'Address & Employment', 'Review & Submit'];
 
 export default function CreditApplicationForm() {
   const [formData, setFormData] = useState<FormData>(initialFormData);
   const [step, setStep] = useState(1);
   const [submitting, setSubmitting] = useState(false);
-  const [result, setResult] = useState<{ success: boolean; applicationId?: string; errors?: string[] } | null>(null);
+  const [result, setResult] = useState<{ success: boolean; message?: string; errors?: string[] } | null>(null);
 
   const totalSteps = 3;
 
@@ -69,8 +61,6 @@ export default function CreditApplicationForm() {
       lastName: formData.lastName,
       email: formData.email,
       phone: formData.phone,
-      dateOfBirth: formData.dateOfBirth,
-      ssn: formData.ssn,
       address: {
         street: formData.street,
         city: formData.city,
@@ -80,8 +70,6 @@ export default function CreditApplicationForm() {
       employmentStatus: formData.employmentStatus,
       annualIncome: parseFloat(formData.annualIncome) || 0,
       monthlyHousingPayment: parseFloat(formData.monthlyHousingPayment) || 0,
-      driversLicenseNumber: formData.driversLicenseNumber,
-      applicationType: formData.applicationType,
     };
 
     try {
@@ -126,7 +114,6 @@ export default function CreditApplicationForm() {
     }
   }
 
-  /* ── Success State ── */
   if (result?.success) {
     return (
       <div className="card text-center py-16">
@@ -135,24 +122,20 @@ export default function CreditApplicationForm() {
             <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
           </svg>
         </div>
-        <h2 className="font-serif text-2xl font-bold text-charcoal mb-2">Application Submitted</h2>
-        <p className="text-charcoal/50 mb-2">
-          Application ID: <span className="font-mono text-charcoal/70">{result.applicationId}</span>
-        </p>
-        <p className="text-charcoal/50 mb-8">
-          We&apos;ll review your application and contact you within 24 hours.
+        <h2 className="font-serif text-2xl font-bold text-charcoal mb-2">Inquiry Sent</h2>
+        <p className="text-charcoal/50 mb-8 max-w-md mx-auto">
+          {result.message || 'Your inquiry has been sent directly to the dealer. They will contact you shortly.'}
         </p>
         <div className="flex items-center justify-center gap-2 text-xs uppercase tracking-premium text-gold">
           <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
             <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
           </svg>
-          Encrypted and tokenized securely
+          No personal data stored on our servers
         </div>
       </div>
     );
   }
 
-  /* ── Form ── */
   return (
     <form onSubmit={handleSubmit} className="card">
       {/* Stepper */}
@@ -201,10 +184,10 @@ export default function CreditApplicationForm() {
         </div>
       )}
 
-      {/* Step 1: Personal Info */}
+      {/* Step 1: Contact Info */}
       {step === 1 && (
         <div className="space-y-5">
-          <h3 className="font-serif text-xl font-bold text-charcoal">Personal Information</h3>
+          <h3 className="font-serif text-xl font-bold text-charcoal">Contact Information</h3>
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block text-sm text-charcoal/60 mb-1.5">First Name *</label>
@@ -222,24 +205,6 @@ export default function CreditApplicationForm() {
           <div>
             <label className="block text-sm text-charcoal/60 mb-1.5">Phone *</label>
             <input type="tel" className="input-field" placeholder="(555) 123-4567" required value={formData.phone} onChange={e => update('phone', e.target.value)} />
-          </div>
-          <div>
-            <label className="block text-sm text-charcoal/60 mb-1.5">Date of Birth *</label>
-            <input type="date" className="input-field" required value={formData.dateOfBirth} onChange={e => update('dateOfBirth', e.target.value)} />
-          </div>
-          <div>
-            <label className="block text-sm text-charcoal/60 mb-1.5">Social Security Number *</label>
-            <input type="password" className="input-field" placeholder="XXX-XX-XXXX" required value={formData.ssn} onChange={e => update('ssn', e.target.value)} autoComplete="off" />
-            <p className="text-xs text-gold mt-1.5 flex items-center gap-1.5">
-              <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
-              </svg>
-              Encrypted and tokenized — never stored in plain text
-            </p>
-          </div>
-          <div>
-            <label className="block text-sm text-charcoal/60 mb-1.5">Driver&apos;s License Number *</label>
-            <input type="text" className="input-field" required value={formData.driversLicenseNumber} onChange={e => update('driversLicenseNumber', e.target.value)} />
           </div>
           <button type="button" onClick={() => setStep(2)} className="btn-primary w-full mt-2">Continue</button>
         </div>
@@ -290,15 +255,6 @@ export default function CreditApplicationForm() {
             <label className="block text-sm text-charcoal/60 mb-1.5">Monthly Housing Payment *</label>
             <input type="number" className="input-field" placeholder="1500" required value={formData.monthlyHousingPayment} onChange={e => update('monthlyHousingPayment', e.target.value)} />
           </div>
-          <div>
-            <label className="block text-sm text-charcoal/60 mb-1.5">Application Type *</label>
-            <select className="input-field" required value={formData.applicationType} onChange={e => update('applicationType', e.target.value)}>
-              <option value="auto_loan">Auto Loan</option>
-              <option value="vehicle_financing">Vehicle Financing</option>
-              <option value="personal_loan">Personal Loan</option>
-              <option value="credit_line">Credit Line</option>
-            </select>
-          </div>
           <div className="flex gap-4 mt-2">
             <button type="button" onClick={() => setStep(1)} className="btn-secondary flex-1">Back</button>
             <button type="button" onClick={() => setStep(3)} className="btn-primary flex-1">Review</button>
@@ -309,15 +265,13 @@ export default function CreditApplicationForm() {
       {/* Step 3: Review & Submit */}
       {step === 3 && (
         <div className="space-y-6">
-          <h3 className="font-serif text-xl font-bold text-charcoal">Review Your Application</h3>
+          <h3 className="font-serif text-xl font-bold text-charcoal">Review Your Inquiry</h3>
 
           <div className="bg-parchment rounded-lg p-5 space-y-2.5 text-sm">
-            <h4 className="text-xs uppercase tracking-premium text-gold mb-3">Personal Information</h4>
+            <h4 className="text-xs uppercase tracking-premium text-gold mb-3">Contact Information</h4>
             <p><span className="text-charcoal/40">Name:</span> <span className="text-charcoal">{formData.firstName} {formData.lastName}</span></p>
             <p><span className="text-charcoal/40">Email:</span> <span className="text-charcoal">{formData.email}</span></p>
             <p><span className="text-charcoal/40">Phone:</span> <span className="text-charcoal">{formData.phone}</span></p>
-            <p><span className="text-charcoal/40">DOB:</span> <span className="text-charcoal">{formData.dateOfBirth}</span></p>
-            <p><span className="text-charcoal/40">SSN:</span> <span className="text-charcoal font-mono">***-**-{formData.ssn.replace(/\D/g, '').slice(-4) || '****'}</span></p>
           </div>
 
           <div className="bg-parchment rounded-lg p-5 space-y-2.5 text-sm">
@@ -326,22 +280,28 @@ export default function CreditApplicationForm() {
             <p><span className="text-charcoal/40">Employment:</span> <span className="text-charcoal capitalize">{formData.employmentStatus.replace('_', ' ')}</span></p>
             <p><span className="text-charcoal/40">Annual Income:</span> <span className="text-charcoal">${Number(formData.annualIncome || 0).toLocaleString()}</span></p>
             <p><span className="text-charcoal/40">Monthly Housing:</span> <span className="text-charcoal">${Number(formData.monthlyHousingPayment || 0).toLocaleString()}</span></p>
-            <p><span className="text-charcoal/40">Loan Type:</span> <span className="text-charcoal capitalize">{formData.applicationType.replace(/_/g, ' ')}</span></p>
           </div>
 
           <div className="bg-parchment border border-[#E8E4DE] rounded-lg p-5 text-sm text-charcoal/60">
-            <p className="font-medium text-charcoal mb-2">By submitting this application, you agree to:</p>
+            <p className="font-medium text-charcoal mb-2">By submitting this inquiry, you agree to:</p>
             <ul className="list-disc list-inside space-y-1">
-              <li>Carbuyinghub.com&apos;s Terms of Service and Privacy Policy</li>
-              <li>Allow participating lenders to review your application</li>
-              <li>Receive communications about your application status</li>
+              <li>CarBuyingHub&apos;s Terms of Service and Privacy Policy</li>
+              <li>Allow participating dealers to contact you about your vehicle interest</li>
+              <li>Receive a one-time confirmation email about your inquiry</li>
             </ul>
+          </div>
+
+          <div className="flex items-center gap-2 text-xs text-gold px-1">
+            <svg className="w-3.5 h-3.5 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
+            </svg>
+            Your information is sent directly to the dealer — nothing stored on our servers
           </div>
 
           <div className="flex gap-4">
             <button type="button" onClick={() => setStep(2)} className="btn-secondary flex-1">Back</button>
             <button type="submit" disabled={submitting} className="btn-primary flex-1 disabled:opacity-50">
-              {submitting ? 'Submitting Securely...' : 'Submit Application'}
+              {submitting ? 'Sending...' : 'Submit Inquiry'}
             </button>
           </div>
         </div>

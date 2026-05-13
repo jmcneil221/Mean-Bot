@@ -44,7 +44,7 @@ export async function sendEmail({ to, subject, html, replyTo }: SendArgs) {
     return { skipped: true as const };
   }
   const { data, error } = await resend.emails.send({
-    from: getFrom(),
+    from: "notifications@carbuyinghub.com",
     to,
     subject,
     html,

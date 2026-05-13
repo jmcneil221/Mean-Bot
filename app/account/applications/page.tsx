@@ -1,7 +1,7 @@
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import Header from '@/app/components/Header';
-import Footer from '@/app/components/Footer';
+import Footer from '@/src/components/Footer';
 import { createClient } from '@/lib/supabase/server';
 
 const STATUS_STYLES: Record<string, string> = {

@@ -1,0 +1,37 @@
+diff --git a/app/(site)/about/page.tsx b/app/(site)/about/page.tsx
+--- a/app/(site)/about/page.tsx
++++ b/app/(site)/about/page.tsx
+@@ -14,1 +14,1 @@
+-              SSN is tokenized with AES-256 encryption.
++              No SSN required to see your payment options.
+diff --git a/app/(site)/legal/page.tsx b/app/(site)/legal/page.tsx
+--- a/app/(site)/legal/page.tsx
++++ b/app/(site)/legal/page.tsx
+@@ -20,1 +20,1 @@
+-      We use AES-256 encryption and SOC 2 compliant data handling.
++      We use secure direct-to-dealer routing without collecting SSNs.
+diff --git a/app/(site)/page.tsx b/app/(site)/page.tsx
+--- a/app/(site)/page.tsx
++++ b/app/(site)/page.tsx
+@@ -17,1 +17,1 @@
+-              Search thousands of vehicles, apply for credit with bank-level security,
++              Search thousands of vehicles, get pre-qualified without a credit check,
+@@ -35,1 +35,1 @@
+-              256-bit Encryption
++              No SSN Required
+@@ -75,2 +75,2 @@
+-            Step 02: Apply for Credit
+-            Your SSN is tokenized and encrypted with bank-level security.
++            Step 02: Get Pre-Qualified
++            No SSN required. See your real payments without a credit hit.
+@@ -110,2 +110,2 @@
+-            Bank-Level Protection: Your Data Is Our Top Priority
+-            We handle your personal information with the same security standards used by banks.
++            Built on Trust: Your Privacy Is Our Top Priority
++            No SSN required. We connect you directly with dealers without collecting sensitive data.
+diff --git a/app/layout.tsx b/app/layout.tsx
+--- a/app/layout.tsx
++++ b/app/layout.tsx
+@@ -9,1 +9,1 @@
+-  description: 'Search thousands of vehicles, apply for credit online with bank-level security.',
++  description: 'Search thousands of vehicles, get pre-qualified without an SSN, and connect with trusted dealers.',

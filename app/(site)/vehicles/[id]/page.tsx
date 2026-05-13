@@ -1,111 +1,138 @@
-import type { Metadata } from 'next';
+import { createClient } from '@/lib/supabase/server';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { createClient } from '@/lib/supabase/server';
+import PaymentCalculator from './PaymentCalculator';
 
 export const dynamic = 'force-dynamic';
-export const revalidate = 0;
 
-async function getVehicle(id: string) {
+export default async function VehicleDetailsPage({ params }: { params: { id: string } }) {
   const supabase = await createClient();
-  const { data } = await supabase
+
+  const { data: vehicle, error } = await supabase
     .from('vehicles')
     .select('*')
-    .eq('id', id)
-    .eq('status', 'active')
+    .eq('id', params.id)
     .single();
-  return data;
-}
 
-export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
-  const { id } = await params;
-  const v = await getVehicle(id);
-  if (!v) return { title: 'Vehicle Not Found' };
-  return {
-    title: `${v.year} ${v.make} ${v.model} ${v.trim || ''}`.trim(),
-    description: `${v.year} ${v.make} ${v.model} — ${v.dealer_name || ''}, ${v.city || ''} ${v.state || ''}`.trim(),
-  };
-}
+  if (error || !vehicle) {
+    notFound();
+  }
 
-function Spec({ label, value }: { label: string; value: string | number | null | undefined }) {
-  if (!value) return null;
-  return (
-    <div className="flex justify-between py-3 border-b border-[#E8E4DE] last:border-0">
-      <dt className="text-charcoal/40 text-sm">{label}</dt>
-      <dd className="text-charcoal text-sm font-medium">{value}</dd>
-    </div>
-  );
-}
+  // Handle pricing
+  const rawPrice = vehicle.price_cents ? vehicle.price_cents / 100 : 0;
+  const priceInDollars = rawPrice > 0 ? rawPrice.toLocaleString() : 'N/A';
 
-export default async function VehicleDetailPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
-  const v = await getVehicle(id);
-  if (!v) notFound();
+  const displayEngine = vehicle.engine_description || vehicle.engine || 'Inquire for Details';
 
-  const price = (v.price_cents / 100).toLocaleString('en-US');
-  const title = `${v.year} ${v.make} ${v.model} ${v.trim || ''}`.trim();
-  const location = [v.city, v.state].filter(Boolean).join(', ');
+  // Fixes the broken image issue by stripping hidden spaces/quotes
+  const defaultImage = "https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?auto=format&fit=crop&q=80&w=1600";
+  let imageToDisplay = defaultImage;
+  
+  if (vehicle.image_url) {
+    imageToDisplay = vehicle.image_url.replace(/['"]+/g, '').trim();
+  }
 
   return (
-    <section className="max-w-6xl mx-auto px-6 py-12">
-      <nav className="text-xs text-charcoal/40 mb-6">
-        <Link href="/vehicles" className="hover:text-charcoal">Search</Link>
-        <span className="mx-2">/</span>
-        <span className="text-charcoal/60">{title}</span>
-      </nav>
+    <div className="min-h-screen bg-[#F4F1EA] text-[#1A1A1A] font-sans pb-40 md:pb-12">
+      <div className="pt-8 px-6 max-w-5xl mx-auto">
+        <Link href="/vehicles" className="text-[11px] uppercase tracking-[0.2em] text-[#A8896B] font-bold hover:text-[#1A1A1A] transition-colors flex items-center gap-2">
+          <span>←</span> Back to Inventory
+        </Link>
+      </div>
 
-      <div className="grid lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-2 space-y-6">
-          <div>
-            <h1 className="font-serif text-3xl md:text-4xl font-bold text-charcoal mb-2">{title}</h1>
-            <p className="text-charcoal/40 text-sm">
-              {v.mileage?.toLocaleString() || '—'} miles &middot; {v.dealer_name || 'Dealer'}{location ? `, ${location}` : ''}
-            </p>
+      <div className="max-w-5xl mx-auto px-6 mt-8 grid md:grid-cols-2 gap-12 lg:gap-16">
+        
+        {/* LEFT COLUMN: VISUALS & DESCRIPTION */}
+        <div className="space-y-10">
+          
+          <div className="bg-white p-6 sm:p-8 border border-[#1A1A1A]/10 shadow-[0_20px_50px_rgba(0,0,0,0.05)] relative group transition-all duration-500 hover:shadow-[0_25px_60px_rgba(0,0,0,0.08)]">
+            <div className="relative aspect-[4/3] w-full overflow-hidden border border-[#1A1A1A]/[0.05] bg-[#1A1A1A]">
+              <img 
+                src={imageToDisplay} 
+                alt={`${vehicle.year} ${vehicle.make} ${vehicle.model}`}
+                className="w-full h-full object-cover grayscale-[25%] opacity-90 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700 ease-in-out group-hover:scale-105"
+              />
+            </div>
+            <div className="absolute -bottom-3 right-8 bg-[#F4F1EA] px-4 py-1 border border-[#1A1A1A]/10 shadow-sm z-10">
+              <p className="text-[8px] uppercase tracking-[0.4em] text-[#1A1A1A]/60 font-bold">Exhibit</p>
+            </div>
           </div>
 
-          {v.description && (
-            <div className="card">
-              <h2 className="font-serif text-lg font-bold text-charcoal mb-4">About This Vehicle</h2>
-              <p className="text-charcoal/60 text-sm leading-relaxed">{v.description}</p>
-            </div>
-          )}
-
-          <div className="card">
-            <h2 className="font-serif text-lg font-bold text-charcoal mb-4">Specifications</h2>
-            <dl>
-              <Spec label="VIN" value={v.vin} />
-              <Spec label="Year" value={v.year} />
-              <Spec label="Make" value={v.make} />
-              <Spec label="Model" value={[v.model, v.trim].filter(Boolean).join(' ')} />
-              <Spec label="Body Style" value={v.body_style} />
-              <Spec label="Mileage" value={v.mileage ? `${v.mileage.toLocaleString()} miles` : null} />
-              <Spec label="Exterior" value={v.exterior_color} />
-              <Spec label="Interior" value={v.interior_color} />
-              <Spec label="Transmission" value={v.transmission} />
-              <Spec label="Drivetrain" value={v.drivetrain} />
-              <Spec label="Fuel" value={v.fuel_type} />
-              <Spec label="Location" value={location || null} />
-            </dl>
+          <div className="space-y-4 pt-4">
+            <h3 className="font-serif text-2xl font-bold border-b border-[#1A1A1A]/10 pb-2">Advisor's Notes</h3>
+            <p className="text-[#1A1A1A]/70 leading-relaxed font-light whitespace-pre-wrap">
+              {vehicle.description || "This premium vehicle is currently being inspected and detailed by our service team. Please check back shortly for a full detailed description of features and history."}
+            </p>
           </div>
         </div>
 
-        <aside className="lg:col-span-1">
-          <div className="card sticky top-24 space-y-5">
-            <p className="font-serif text-3xl font-bold text-charcoal">${price}</p>
-            <div className="border-t border-[#E8E4DE]" />
-            <Link href="/apply" className="btn-primary w-full text-center block">Apply for Credit</Link>
-            <a
-              href={`mailto:dealers@carbuyinghub.com?subject=Inquiry%20${encodeURIComponent(title)}`}
-              className="btn-secondary w-full text-center block"
-            >
-              Contact Dealer
-            </a>
-            <div className="pt-2 text-xs text-charcoal/40 uppercase tracking-premium">Listed by</div>
-            <div className="text-sm font-medium text-charcoal">{v.dealer_name || 'Dealer'}</div>
-            {location && <div className="text-xs text-charcoal/40">{location}</div>}
+        {/* RIGHT COLUMN: SPECS & ACTIONS */}
+        <div className="flex flex-col">
+          <p className="text-[11px] uppercase tracking-[0.3em] text-[#A8896B] font-medium mb-4">
+            {vehicle.year} • {vehicle.mileage?.toLocaleString() || '—'} miles
+          </p>
+          <h1 className="font-serif text-4xl md:text-5xl font-bold tracking-tight mb-2 leading-tight">
+            {vehicle.make} {vehicle.model}
+          </h1>
+          <p className="text-xl text-[#1A1A1A]/60 font-light mb-8">
+            {vehicle.trim || 'Standard Trim'}
+          </p>
+
+          {/* LISTED PRICE BLOCK */}
+          <div className="bg-white p-6 rounded-sm border border-[#1A1A1A]/[0.06] shadow-sm mb-6 flex justify-between items-end">
+            <div>
+              <p className="text-[10px] uppercase tracking-[0.2em] text-[#1A1A1A]/40 font-bold mb-2">Listed Price</p>
+              <p className="font-serif text-4xl font-bold text-[#6B1D2F]">${priceInDollars}</p>
+            </div>
           </div>
-        </aside>
+
+          {/* PAYMENT CALCULATOR BLOCK (Stacked directly underneath) */}
+          {rawPrice > 0 && <PaymentCalculator vehiclePrice={rawPrice} />}
+
+          {/* SPECIFICATIONS GRID */}
+          <div className="space-y-4 text-sm font-light text-[#1A1A1A]/80 mb-10">
+            <div className="flex justify-between border-b border-[#1A1A1A]/10 pb-3">
+              <span className="font-medium text-[#1A1A1A]">VIN</span>
+              <span className="uppercase tracking-wider">{vehicle.vin || 'N/A'}</span>
+            </div>
+            <div className="flex justify-between border-b border-[#1A1A1A]/10 pb-3">
+              <span className="font-medium text-[#1A1A1A]">Engine</span>
+              <span>{displayEngine}</span>
+            </div>
+            <div className="flex justify-between border-b border-[#1A1A1A]/10 pb-3">
+              <span className="font-medium text-[#1A1A1A]">Drive Type</span>
+              <span>{vehicle.drivetrain || 'N/A'}</span>
+            </div>
+            <div className="flex justify-between border-b border-[#1A1A1A]/10 pb-3">
+              <span className="font-medium text-[#1A1A1A]">Transmission</span>
+              <span>{vehicle.transmission || 'N/A'}</span>
+            </div>
+            <div className="flex justify-between border-b border-[#1A1A1A]/10 pb-3">
+              <span className="font-medium text-[#1A1A1A]">Exterior</span>
+              <span>{vehicle.exterior_color || 'N/A'}</span>
+            </div>
+          </div>
+          
+          {/* DESKTOP ACTIONS */}
+          <div className="hidden md:flex flex-col space-y-3">
+            <Link 
+              href={`/checkout/reserve/${vehicle.id}?intent=reserve`} 
+              className="group flex items-center justify-center gap-2 w-full text-center bg-[#1A1A1A] text-[#F4F1EA] px-10 py-5 rounded-sm text-[11px] uppercase tracking-[0.2em] font-medium transition-colors hover:bg-[#6B1D2F] shadow-md"
+            >
+              <span>Reserve Vehicle</span>
+            </Link>
+            
+            <div className="flex flex-col items-center gap-2 pt-2">
+              <Link 
+                href={`/checkout/reserve/${vehicle.id}?intent=check_availability`} 
+                className="block w-full text-center bg-transparent border border-[#1A1A1A]/20 text-[#1A1A1A] px-10 py-4 rounded-sm text-[11px] uppercase tracking-[0.2em] font-medium transition-all hover:border-[#1A1A1A] hover:bg-[#1A1A1A]/5"
+              >
+                Check Availability
+              </Link>
+            </div>
+          </div>
+        </div>
       </div>
-    </section>
+    </div>
   );
 }
